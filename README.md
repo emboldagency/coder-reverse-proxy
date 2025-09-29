@@ -13,7 +13,7 @@ can be forwarded to remote internal services. It renders a script via
 
 ```terraform
 module "reverse_proxy" {
-  source   = "git::https://github.com/embold/coder-reverse-proxy.git?ref=v1.0.0"
+  source   = "git::https://github.com/emboldagency/coder-reverse-proxy.git?ref=v1.0.0"
   count    = data.coder_workspace.me.start_count
   agent_id = coder_agent.example.id
   proxy_mappings = ["8080:internal.service:80", "8443:internal.service:443"]
