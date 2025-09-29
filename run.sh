@@ -11,7 +11,8 @@ fi
 # mappings like "8080:internal.service:80".
 PROXY_LINE="${PROXY_LINE}"
 
-mkdir -p /var/run/reverse-proxy || true
+RUNDIR="$${XDG_RUNTIME_DIR:-/tmp}/reverse-proxy"
+mkdir -p "$RUNDIR" || true
 
 for m in $PROXY_LINE; do
   # Parse mapping — use escaped shell parameter expansions so templatefile() doesn't try to evaluate them
@@ -22,5 +23,5 @@ for m in $PROXY_LINE; do
 
   echo "Starting proxy: local $local_port -> $remote_host:$remote_port"
   # Run socat in background; use nohup so it survives the script exit if needed
-  nohup socat TCP-LISTEN:$local_port,reuseaddr,fork TCP:$remote_host:$remote_port >/tmp/reverse-proxy-$local_port.log 2>&1 &
+  nohup socat TCP-LISTEN:$local_port,reuseaddr,fork TCP:$remote_host:$remote_port >"$RUNDIR/reverse-proxy-$local_port.log" 2>&1 &
 done
