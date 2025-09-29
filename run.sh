@@ -9,12 +9,12 @@ fi
 
 # Rendered by Terraform templatefile. PROXY_LINE is a space-separated list of
 # mappings like "8080:internal.service:80".
-PROXY_LINE="$${PROXY_LINE}"
+PROXY_LINE="${PROXY_LINE}"
 
 mkdir -p /var/run/reverse-proxy || true
 
 for m in $PROXY_LINE; do
-  # Parse mapping
+  # Parse mapping — use escaped shell parameter expansions so templatefile() doesn't try to evaluate them
   local_port="$${m%%:*}"
   rest="$${m#*:}"
   remote_host="$${rest%%:*}"
