@@ -1,5 +1,9 @@
 # Reverse Proxy module
 
+> [!CAUTION]
+> **DEPRECATION NOTICE:** This standalone repository is no longer maintained.
+> The **coder terraform module** has been migrated to: [**coder-registry**](https://github.com/emboldagency/coder-registry).
+
 Coder module that starts background socat proxies inside the workspace so local ports
 can be forwarded to remote internal services. It renders a script via
 `templatefile()` and provisions it as a `coder_script`.
